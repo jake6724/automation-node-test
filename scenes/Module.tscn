@@ -1,0 +1,100 @@
+[gd_scene load_steps=6 format=3 uid="uid://dk0gea64qrnwr"]
+
+[ext_resource type="Texture2D" uid="uid://v31v0ivrlm7k" path="res://assets/triangle_down_empty.png" id="1_62fpe"]
+[ext_resource type="Texture2D" uid="uid://c7abfkud8jxbf" path="res://assets/circle_empty.png" id="2_sokbq"]
+[ext_resource type="Texture2D" uid="uid://chvj44p1wdxu5" path="res://assets/square_empty.png" id="3_2fiei"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o2q6b"]
+bg_color = Color(0.36078432, 0.34509805, 0.36862746, 0.99215686)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.14897126, 0.1407392, 0.15308312, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_brgj3"]
+bg_color = Color(0.14901961, 0.14117648, 0.15294118, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+
+[node name="Background" type="Panel"]
+offset_top = 8.0
+offset_right = 96.0
+offset_bottom = 104.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_o2q6b")
+
+[node name="Inputs" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 16.0
+offset_right = 16.0
+offset_bottom = 40.0
+theme_override_constants/separation = 4
+
+[node name="TextureRect" type="TextureRect" parent="Inputs"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+texture = ExtResource("1_62fpe")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="Inputs"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+texture = ExtResource("2_sokbq")
+expand_mode = 1
+
+[node name="TextureRect3" type="TextureRect" parent="Inputs"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+texture = ExtResource("3_2fiei")
+expand_mode = 1
+
+[node name="Outputs" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 16.0
+offset_right = 88.0
+offset_bottom = 48.0
+theme_override_constants/separation = 4
+
+[node name="TextureRect" type="TextureRect" parent="Outputs"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+texture = ExtResource("1_62fpe")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="Outputs"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+texture = ExtResource("2_sokbq")
+expand_mode = 1
+
+[node name="TextureRect3" type="TextureRect" parent="Outputs"]
+custom_minimum_size = Vector2(8, 8)
+layout_mode = 2
+texture = ExtResource("3_2fiei")
+expand_mode = 1
+
+[node name="HeaderBackground" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -48.0
+offset_top = -8.0
+offset_right = 48.0
+offset_bottom = 8.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_brgj3")
+
+[node name="HeaderLabel" type="Label" parent="HeaderBackground"]
+layout_mode = 0
+offset_right = 96.0
+offset_bottom = 16.0
+theme_override_font_sizes/font_size = 8
+text = "Generic Module"
+horizontal_alignment = 1
+vertical_alignment = 1
