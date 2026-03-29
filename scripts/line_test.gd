@@ -27,14 +27,9 @@ func _process(delta):
 		mouse_pos_margin = 30
 
 	var mouse_pos_outer: Vector2 =  local_mouse_pos - Vector2(mouse_pos_margin, 0)
-	line.add_point(Vector2(mouse_pos_outer.x, line_start.y))
-	line.add_point(mouse_pos_outer)
-	line.add_point(local_mouse_pos)
-	
-	
 
-
-	# line.points[-1] = line.to_local(get_global_mouse_position())
+	line.add_point(Vector2(line_start.x, (local_mouse_pos.y)))
+	line.add_point(Vector2(local_mouse_pos.x, (local_mouse_pos.y)))
 
 # func _input(event: InputEvent) -> void:
 #     if Input.is_action_just_pressed("left_click"):
