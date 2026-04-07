@@ -10,6 +10,8 @@ var parent_module: Module
 @export var max_connections: int = 1
 var connections: Array[Connection] = []
 
+var linked_modules: Dictionary[Module, Array] = {}
+
 @export var connected_texture: Texture2D
 @export var unconnected_texture: Texture2D
 
@@ -31,12 +33,41 @@ func process_connection_limit() -> void:
 		var connection_to_remove = connections[-1]
 		connections.remove_at(-1)
 		if is_instance_valid(connection_to_remove):
-			connection_to_remove.queue_free()
+			print("Test")
+			connection_to_remove.disconnect_from_target_port()
 
-func add_connection(_connect: Connection) -> void:
-	pass
+func add_connection(_connection: Connection) -> void:
+	connections.append(_connection)
+	_connection.connected_to_port.connect(on_connection_connected_to_port)
+	_connection.disconnected_from_port.connect(on_connection_disconnected_from_port)
+
+func on_connection_connected_to_port(_connection: Connection, _linked_module: Module) -> void:
+	if _connection.target_port:
+		var callback: Callable = Callable(self, "on_connection_linked_module_moved")
+		if not _linked_module.moved.is_connected(callback): # This is PER PORT; if a port's max connection is 1 this is not relevant
+			_linked_module.moved.connect(callback)
+
+		if not linked_modules.has(_linked_module):
+			linked_modules[_linked_module] = []
+
+		linked_modules[_linked_module].append(_connection)
+		print(linked_modules)
+	else:
+		push_error("Port.on_connection_connected_to_port(): _connection.target_port = null")
+
+func on_connection_disconnected_from_port(_connection: Connection, _linked_module: Module) -> void:
+	linked_modules[_linked_module].erase(_connection)
+	_connection.queue_free()
+
+	if linked_modules[_linked_module].size() <= 0: # Stop observing this module if no child connections are linked to it
+		_linked_module.moved.disconnect(on_connection_linked_module_moved)
 
 func update_all_connections() -> void:
 	for _connection: Connection in connections:
+		if is_instance_valid(_connection):
+			_connection.draw_to_target_port()
+	
+func on_connection_linked_module_moved(_module: Module) -> void:
+	for _connection in linked_modules[_module]:
 		if is_instance_valid(_connection):
 			_connection.draw_to_target_port()

@@ -46,7 +46,7 @@ func on_mouse_exited() -> void:
 func move(move_vector: Vector2) -> void:
 	global_position += move_vector
 	update_all_port_connections()
-	moved.emit()
+	moved.emit(self)
 
 func configure_ports() -> void:
 	for child in input_parent.get_children():

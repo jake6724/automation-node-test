@@ -10,15 +10,14 @@ var parent_module: Module
 var start_port: Port
 var target_port: Port
 
-const HORIZONTAL_OFFSET_DISTANCE: float = 25
+const HORIZONTAL_OFFSET_DISTANCE: float = 35
 
-#TODO: Ports should connect to a signal from any modules they are connected to. When a module moves it needs to emit this signal so that
-# all ports from another node know to update
-# Ports that belong to the moving node can be called manually like is already set up
+signal connected_to_port
+signal disconnected_from_port
 
 func _ready():
 	z_as_relative = false
-	z_index = 1000
+	z_index = 100
 	width = 5
 	default_color = Color.WHITE
 
@@ -55,7 +54,13 @@ func draw_to_target_port() -> void:
 func connect_to_port(_port: Port) -> void:
 	target_port = _port
 	connected = true
+	var linked_module: Module = target_port.parent_module
+	connected_to_port.emit(self, linked_module)
 
 func disconnect_from_target_port() -> void:
-	target_port = null
-	connected = false
+	if target_port:
+		print("Fuckd")
+		var linked_module: Module = target_port.parent_module
+		target_port = null
+		connected = false
+		disconnected_from_port.emit(self, linked_module)

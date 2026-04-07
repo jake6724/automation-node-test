@@ -15,16 +15,23 @@ const HORIZONTAL_OFFSET: Vector2 = Vector2(HORIZONTAL_OFFSET_DISTANCE, 0)
 func _ready():
 	configure_modules()
 
+func _process(_delta):
+	if active_connection:
+		if active_connection.target_port:
+			active_connection.draw_to_target_port()
+		else:
+			active_connection.draw_to_mouse()
+
 func _input(event):
-	# TODO: Change this to call whenever a port is clicked with _gui_input
-	if Input.is_action_just_pressed("left_click"):
+	# Create and draw a new connection
+	if Input.is_action_just_pressed("left_click"): # TODO: Change this to call whenever a port is clicked with _gui_input
 		if source_port:
 			source_port.process_connection_limit()
-
 			create_connection(source_port)
 			set_modules_port_type_target(source_port)
 			set_module_ports_ignore_mouse(true)
 			
+	# Place or delete a new connection
 	if Input.is_action_just_released("left_click"):
 		if active_connection and not active_connection.connected:
 			active_connection.queue_free()
@@ -32,16 +39,10 @@ func _input(event):
 		active_connection = null
 		set_module_ports_ignore_mouse(false)
 
+	# Move a module
 	if event is InputEventMouseMotion:
 		if active_module:
 			active_module.move(event.relative)
-
-func _process(_delta):
-	if active_connection:
-		if active_connection.target_port:
-			active_connection.draw_to_target_port()
-		else:
-			active_connection.draw_to_mouse()
 
 func configure_modules() -> void:
 	for module: Module in module_parent.get_children():
@@ -91,5 +92,5 @@ func create_connection(_start_port: Port) -> void:
 	var new_connection: Connection = Connection.new()
 	add_child(new_connection)
 	new_connection.initialize(_start_port)
-	_start_port.connections.append(new_connection)
+	_start_port.add_connection(new_connection)
 	active_connection = new_connection
