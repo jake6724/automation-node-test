@@ -1,8 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://dk0gea64qrnwr"]
 
-[ext_resource type="Texture2D" uid="uid://v31v0ivrlm7k" path="res://assets/triangle_down_empty.png" id="1_62fpe"]
-[ext_resource type="Texture2D" uid="uid://c7abfkud8jxbf" path="res://assets/circle_empty.png" id="2_sokbq"]
-[ext_resource type="Texture2D" uid="uid://chvj44p1wdxu5" path="res://assets/square_empty.png" id="3_2fiei"]
+[ext_resource type="PackedScene" uid="uid://dsk4ig3qqwyxu" path="res://scenes/Port.tscn" id="1_brgj3"]
+[ext_resource type="Script" uid="uid://21ggykxwo7tx" path="res://scripts/module.gd" id="1_d5fem"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o2q6b"]
 bg_color = Color(0.36078432, 0.34509805, 0.36862746, 0.99215686)
@@ -16,85 +15,88 @@ corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_brgj3"]
-bg_color = Color(0.14901961, 0.14117648, 0.15294118, 1)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d5fem"]
+bg_color = Color(0.11489672, 0.11489683, 0.11489678, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
 
-[node name="Background" type="Panel"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_celxj"]
+bg_color = Color(0.18717614, 0.18717614, 0.18717614, 1)
+
+[node name="Module" type="Panel" node_paths=PackedStringArray("input_parent", "output_parent", "header")]
+custom_minimum_size = Vector2(128, 120)
 offset_top = 8.0
-offset_right = 96.0
-offset_bottom = 104.0
+offset_right = 128.0
+offset_bottom = 128.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_o2q6b")
+script = ExtResource("1_d5fem")
+input_parent = NodePath("Inputs")
+output_parent = NodePath("Outputs")
+header = NodePath("HeaderBackground")
+metadata/_custom_type_script = "uid://21ggykxwo7tx"
 
 [node name="Inputs" type="VBoxContainer" parent="."]
 layout_mode = 0
 offset_left = 8.0
-offset_top = 16.0
-offset_right = 16.0
-offset_bottom = 40.0
+offset_top = 24.0
+offset_right = 32.0
+offset_bottom = 72.0
+mouse_filter = 2
 theme_override_constants/separation = 4
 
-[node name="TextureRect" type="TextureRect" parent="Inputs"]
-custom_minimum_size = Vector2(8, 8)
+[node name="Port" parent="Inputs" instance=ExtResource("1_brgj3")]
 layout_mode = 2
-texture = ExtResource("1_62fpe")
-expand_mode = 1
+size_flags_vertical = 3
+mouse_filter = 0
 
-[node name="TextureRect2" type="TextureRect" parent="Inputs"]
-custom_minimum_size = Vector2(8, 8)
+[node name="Port2" parent="Inputs" instance=ExtResource("1_brgj3")]
 layout_mode = 2
-texture = ExtResource("2_sokbq")
-expand_mode = 1
-
-[node name="TextureRect3" type="TextureRect" parent="Inputs"]
-custom_minimum_size = Vector2(8, 8)
-layout_mode = 2
-texture = ExtResource("3_2fiei")
-expand_mode = 1
+size_flags_vertical = 3
+mouse_filter = 0
+type = 1
 
 [node name="Outputs" type="VBoxContainer" parent="."]
 layout_mode = 0
-offset_left = 80.0
-offset_top = 16.0
-offset_right = 88.0
-offset_bottom = 48.0
+offset_left = 96.0
+offset_top = 24.0
+offset_right = 120.0
+offset_bottom = 72.0
+mouse_filter = 2
 theme_override_constants/separation = 4
 
-[node name="TextureRect" type="TextureRect" parent="Outputs"]
-custom_minimum_size = Vector2(8, 8)
+[node name="Port" parent="Outputs" instance=ExtResource("1_brgj3")]
 layout_mode = 2
-texture = ExtResource("1_62fpe")
-expand_mode = 1
+size_flags_vertical = 3
+mouse_filter = 0
+is_input = false
 
-[node name="TextureRect2" type="TextureRect" parent="Outputs"]
-custom_minimum_size = Vector2(8, 8)
+[node name="Port2" parent="Outputs" instance=ExtResource("1_brgj3")]
 layout_mode = 2
-texture = ExtResource("2_sokbq")
-expand_mode = 1
+size_flags_vertical = 3
+mouse_filter = 0
+type = 1
+is_input = false
 
-[node name="TextureRect3" type="TextureRect" parent="Outputs"]
-custom_minimum_size = Vector2(8, 8)
-layout_mode = 2
-texture = ExtResource("3_2fiei")
-expand_mode = 1
-
-[node name="HeaderBackground" type="Panel" parent="."]
+[node name="HeaderBackground" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -48.0
+offset_left = -64.0
 offset_top = -8.0
-offset_right = 48.0
-offset_bottom = 8.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_brgj3")
+offset_right = 64.0
+offset_bottom = 16.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_d5fem")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_d5fem")
+theme_override_styles/hover = SubResource("StyleBoxFlat_celxj")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_d5fem")
+theme_override_styles/focus = SubResource("StyleBoxFlat_d5fem")
 
 [node name="HeaderLabel" type="Label" parent="HeaderBackground"]
 layout_mode = 0
-offset_right = 96.0
-offset_bottom = 16.0
-theme_override_font_sizes/font_size = 8
-text = "Generic Module"
+offset_right = 128.0
+offset_bottom = 24.0
+theme_override_font_sizes/font_size = 12
+text = "Module"
 horizontal_alignment = 1
 vertical_alignment = 1

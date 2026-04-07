@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://bq58c5va0hkdg"]
+
+[ext_resource type="Script" uid="uid://dutj0qpsesrfx" path="res://scripts/port_shape.gd" id="1_twqm8"]
+
+[node name="PortShape" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 320.0
+offset_top = 256.0
+offset_right = -366.0
+offset_bottom = -280.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_twqm8")
+metadata/_custom_type_script = "uid://dutj0qpsesrfx"

@@ -1,8 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://ufg4hjydfio6"]
+[gd_scene load_steps=5 format=3 uid="uid://ufg4hjydfio6"]
 
-[ext_resource type="Script" uid="uid://dhpk7sfab58y0" path="res://scripts/line_test.gd" id="1_rafsq"]
+[ext_resource type="Script" uid="uid://cvdegmcna1omq" path="res://scripts/player_controller.gd" id="1_rafsq"]
+[ext_resource type="PackedScene" uid="uid://dk0gea64qrnwr" path="res://scenes/Module.tscn" id="2_1gem8"]
+[ext_resource type="Material" uid="uid://d2rk7wa3um2ua" path="res://materials/sm_grid.tres" id="3_7xge5"]
+[ext_resource type="Script" uid="uid://cd2lfn5r8bv7a" path="res://scripts/player_camera.gd" id="4_ahva4"]
 
-[node name="Control" type="Control"]
+[node name="PlayerController" type="Control" node_paths=PackedStringArray("module_parent")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -10,4 +13,69 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_rafsq")
-metadata/_custom_type_script = "uid://dhpk7sfab58y0"
+module_parent = NodePath("ModuleParent")
+
+[node name="ModuleParent" type="Node" parent="."]
+
+[node name="Module" parent="ModuleParent" instance=ExtResource("2_1gem8")]
+offset_left = 192.0
+offset_top = 264.0
+offset_right = 288.0
+offset_bottom = 360.0
+
+[node name="Module2" parent="ModuleParent" instance=ExtResource("2_1gem8")]
+offset_left = 448.0
+offset_top = 200.0
+offset_right = 544.0
+offset_bottom = 296.0
+
+[node name="Module3" parent="ModuleParent" instance=ExtResource("2_1gem8")]
+offset_left = 448.0
+offset_top = 368.0
+offset_right = 544.0
+offset_bottom = 464.0
+
+[node name="Module4" parent="ModuleParent" instance=ExtResource("2_1gem8")]
+offset_left = 320.0
+offset_top = 40.0
+offset_right = 416.0
+offset_bottom = 136.0
+
+[node name="Module5" parent="ModuleParent" instance=ExtResource("2_1gem8")]
+offset_left = 608.0
+offset_top = 464.0
+offset_right = 704.0
+offset_bottom = 560.0
+
+[node name="Grid" type="ColorRect" parent="."]
+material = ExtResource("3_7xge5")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -3768.0
+offset_top = -3336.0
+offset_right = 2682.0
+offset_bottom = 2624.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -3
+z_as_relative = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -4416.0
+offset_top = -3752.0
+offset_right = 3170.0
+offset_bottom = 3344.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.16565639, 0.16565642, 0.16565639, 1)
+
+[node name="PlayerCamera" type="Camera2D" parent="."]
+position = Vector2(384, 296)
+script = ExtResource("4_ahva4")

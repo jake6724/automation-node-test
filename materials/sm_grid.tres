@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://d2rk7wa3um2ua"]
+
+[ext_resource type="Shader" uid="uid://836hak3x2vih" path="res://materials/shaders/grid.gdshader" id="1_vlrma"]
+
+[resource]
+shader = ExtResource("1_vlrma")
+shader_parameter/line_width = 1.0
+shader_parameter/cell_size = 32.0
+shader_parameter/line_color = Color(0.31061712, 0.31061712, 0.3106171, 1)
+shader_parameter/grid_offset = Vector2(0, 0)
