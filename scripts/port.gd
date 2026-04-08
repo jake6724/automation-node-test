@@ -33,7 +33,6 @@ func process_connection_limit() -> void:
 		var connection_to_remove = connections[-1]
 		connections.remove_at(-1)
 		if is_instance_valid(connection_to_remove):
-			print("Test")
 			connection_to_remove.disconnect_from_target_port()
 
 func add_connection(_connection: Connection) -> void:
@@ -51,7 +50,6 @@ func on_connection_connected_to_port(_connection: Connection, _linked_module: Mo
 			linked_modules[_linked_module] = []
 
 		linked_modules[_linked_module].append(_connection)
-		print(linked_modules)
 	else:
 		push_error("Port.on_connection_connected_to_port(): _connection.target_port = null")
 

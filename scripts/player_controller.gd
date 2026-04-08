@@ -1,6 +1,7 @@
 class_name PlayerController
 extends Control
 
+@export var player_camera: PlayerCamera
 @export var module_parent: Node
 var modules: Array[Module] = []
 
@@ -42,7 +43,7 @@ func _input(event):
 	# Move a module
 	if event is InputEventMouseMotion:
 		if active_module:
-			active_module.move(event.relative)
+			active_module.move(event.relative / player_camera.zoom.x) # Divide by zoom to keep scale relative with zoom
 
 func configure_modules() -> void:
 	for module: Module in module_parent.get_children():

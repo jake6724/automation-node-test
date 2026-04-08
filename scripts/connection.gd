@@ -2,13 +2,18 @@ class_name Connection
 extends Line2D
 
 var connected: bool = false
-var start: Vector2
-var elbow: Vector2
-var static_points: Array[Vector2]
-var parent_module: Module
 
 var start_port: Port
+var start: Vector2
+var elbow: Vector2
+var start_static_points: Array[Vector2]
+
 var target_port: Port
+var target_point: Vector2
+var target_elbow_point: Vector2
+var target_static_points: Array[Vector2]
+
+var parent_module: Module
 
 const HORIZONTAL_OFFSET_DISTANCE: float = 35
 
@@ -17,7 +22,7 @@ signal disconnected_from_port
 
 func _ready():
 	z_as_relative = false
-	z_index = 100
+	z_index = -1
 	width = 5
 	default_color = Color.WHITE
 
@@ -30,14 +35,20 @@ func calc_static_points() -> void:
 	if start_port:
 		var _h_offset: Vector2 = Vector2(HORIZONTAL_OFFSET_DISTANCE, 0)	# Calc horizontal offset based on if port is input or output
 		if start_port.is_input: _h_offset *= -1
-		var port_offset = start_port.size/2
+		var start_port_offset = start_port.size/2
 
-		start = to_local(start_port.global_position + port_offset)
+		start = to_local(start_port.global_position + start_port_offset)
 		elbow = start + _h_offset
-		static_points = [start, elbow]
+		start_static_points = [start, elbow]
+
+		if target_port:
+			var target_port_offset = target_port.size/2
+			target_point = to_local(target_port.global_position + target_port_offset)
+			target_elbow_point = target_point + -_h_offset
+			target_static_points = [target_elbow_point, target_point]
 
 func draw_to_mouse() -> void:
-	points = static_points
+	points = start_static_points
 	var local_mouse_pos: Vector2 = to_local(get_global_mouse_position())
 	add_point(Vector2(elbow.x, (local_mouse_pos.y)))
 	add_point(Vector2(local_mouse_pos.x, (local_mouse_pos.y)))
@@ -45,11 +56,13 @@ func draw_to_mouse() -> void:
 func draw_to_target_port() -> void:
 	if target_port:
 		calc_static_points()
-		points = static_points
-		var port_offset = target_port.size/2
-		var local_target_port_pos: Vector2 = to_local(target_port.global_position) + port_offset
-		add_point(Vector2(elbow.x, (local_target_port_pos.y)))
-		add_point(Vector2(local_target_port_pos.x, (local_target_port_pos.y)))
+		points = start_static_points
+
+		var mid_point: Vector2 = Vector2(elbow.x, target_static_points[0].y) # Point which connects the start elbow to the target elbow
+		add_point(mid_point)
+
+		add_point(target_static_points[0])
+		add_point(target_static_points[1])
 
 func connect_to_port(_port: Port) -> void:
 	target_port = _port
@@ -59,7 +72,6 @@ func connect_to_port(_port: Port) -> void:
 
 func disconnect_from_target_port() -> void:
 	if target_port:
-		print("Fuckd")
 		var linked_module: Module = target_port.parent_module
 		target_port = null
 		connected = false

@@ -12,6 +12,7 @@ var drag_sensitivity: float = 1.0
 var camera_move_speed: float = 25
 
 func _process(delta):
+	# print(zoom)
 	if zoom != zoom_target:
 		zoom = lerp(zoom, zoom_target, zoom_speed)
 
