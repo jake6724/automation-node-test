@@ -16,6 +16,7 @@ var target_static_points: Array[Vector2]
 var parent_module: Module
 
 const HORIZONTAL_OFFSET_DISTANCE: float = 35
+var horizontal_offset_distance_increment: float = 0
 
 signal connected_to_port
 signal disconnected_from_port

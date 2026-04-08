@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bwnb4s8cdooyu"]
+
+[ext_resource type="Script" uid="uid://bho0sokd3umfr" path="res://scripts/module_library.gd" id="1_oqwm2"]
+
+[node name="ModuleLibrary" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_oqwm2")

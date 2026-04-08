@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://f5ntbjlv6ts4"]
+
+[ext_resource type="Script" uid="uid://cxhabe5jdfqyr" path="res://scripts/player_hud.gd" id="1_0kcyj"]
+
+[node name="PlayerHud" type="CanvasLayer"]
+script = ExtResource("1_0kcyj")
+metadata/_custom_type_script = "uid://cxhabe5jdfqyr"
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Button" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.49100003
+anchor_top = 0.92
+anchor_right = 0.49100003
+anchor_bottom = 0.92
+offset_left = -16.25003
+offset_top = -16.0
+offset_right = 15.7499695
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Modules"

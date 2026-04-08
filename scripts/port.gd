@@ -34,6 +34,7 @@ func process_connection_limit() -> void:
 		connections.remove_at(-1)
 		if is_instance_valid(connection_to_remove):
 			connection_to_remove.disconnect_from_target_port()
+			connection_to_remove.queue_free()
 
 func add_connection(_connection: Connection) -> void:
 	connections.append(_connection)
@@ -55,8 +56,6 @@ func on_connection_connected_to_port(_connection: Connection, _linked_module: Mo
 
 func on_connection_disconnected_from_port(_connection: Connection, _linked_module: Module) -> void:
 	linked_modules[_linked_module].erase(_connection)
-	_connection.queue_free()
-
 	if linked_modules[_linked_module].size() <= 0: # Stop observing this module if no child connections are linked to it
 		_linked_module.moved.disconnect(on_connection_linked_module_moved)
 

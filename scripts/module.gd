@@ -45,6 +45,7 @@ func on_mouse_exited() -> void:
 
 func move(move_vector: Vector2) -> void:
 	global_position += move_vector
+	# global_position = floor(global_position / 2)
 	update_all_port_connections()
 	moved.emit(self)
 

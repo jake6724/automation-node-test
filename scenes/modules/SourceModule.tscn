@@ -1,0 +1,90 @@
+[gd_scene load_steps=6 format=3 uid="uid://cgfptnpahpgtf"]
+
+[ext_resource type="Script" uid="uid://bipcohspp8ukx" path="res://scripts/modules/source_module.gd" id="1_l7km8"]
+[ext_resource type="PackedScene" uid="uid://dsk4ig3qqwyxu" path="res://scenes/Port.tscn" id="2_jq47j"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l7km8"]
+bg_color = Color(0.36078432, 0.34509805, 0.36862746, 0.99215686)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.14897126, 0.1407392, 0.15308312, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jq47j"]
+bg_color = Color(0.11489672, 0.11489683, 0.11489678, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aom0m"]
+bg_color = Color(0.18717614, 0.18717614, 0.18717614, 1)
+
+[node name="SourceModule" type="Panel" node_paths=PackedStringArray("input_parent", "output_parent", "header")]
+offset_right = 128.0
+offset_bottom = 56.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_l7km8")
+script = ExtResource("1_l7km8")
+input_parent = NodePath("Inputs")
+output_parent = NodePath("Outputs")
+header = NodePath("Header")
+metadata/_custom_type_script = "uid://bipcohspp8ukx"
+
+[node name="Header" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -64.0
+offset_top = -8.0
+offset_right = 64.0
+offset_bottom = 16.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_jq47j")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_jq47j")
+theme_override_styles/hover = SubResource("StyleBoxFlat_aom0m")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_jq47j")
+theme_override_styles/focus = SubResource("StyleBoxFlat_jq47j")
+
+[node name="HeaderLabel" type="Label" parent="Header"]
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 24.0
+theme_override_font_sizes/font_size = 12
+text = "Soul"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Inputs" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_top = -8.0
+offset_bottom = -8.0
+mouse_filter = 2
+theme_override_constants/separation = 4
+
+[node name="Outputs" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 24.0
+offset_right = 120.0
+offset_bottom = 48.0
+mouse_filter = 2
+theme_override_constants/separation = 4
+
+[node name="Port" parent="Outputs" instance=ExtResource("2_jq47j")]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 0
+is_input = false
+
+[node name="OutputValue" type="Label" parent="."]
+layout_mode = 0
+offset_left = 56.0
+offset_top = 24.0
+offset_right = 96.0
+offset_bottom = 47.0
+text = "1000"
+horizontal_alignment = 1
+vertical_alignment = 1

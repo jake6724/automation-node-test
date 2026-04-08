@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://ufg4hjydfio6"]
+[gd_scene load_steps=6 format=3 uid="uid://ufg4hjydfio6"]
 
 [ext_resource type="Script" uid="uid://cvdegmcna1omq" path="res://scripts/player_controller.gd" id="1_rafsq"]
 [ext_resource type="PackedScene" uid="uid://dk0gea64qrnwr" path="res://scenes/Module.tscn" id="2_1gem8"]
 [ext_resource type="Material" uid="uid://d2rk7wa3um2ua" path="res://materials/sm_grid.tres" id="3_7xge5"]
+[ext_resource type="PackedScene" uid="uid://cgfptnpahpgtf" path="res://scenes/modules/SourceModule.tscn" id="3_wm0a3"]
 [ext_resource type="Script" uid="uid://cd2lfn5r8bv7a" path="res://scripts/player_camera.gd" id="4_ahva4"]
 
 [node name="PlayerController" type="Control" node_paths=PackedStringArray("player_camera", "module_parent")]
@@ -47,6 +48,12 @@ offset_left = 608.0
 offset_top = 464.0
 offset_right = 704.0
 offset_bottom = 560.0
+
+[node name="SourceModule" parent="ModuleParent" instance=ExtResource("3_wm0a3")]
+offset_left = 40.0
+offset_top = 168.0
+offset_right = 168.0
+offset_bottom = 224.0
 
 [node name="Grid" type="ColorRect" parent="."]
 z_index = -4095

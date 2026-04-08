@@ -10,8 +10,7 @@ var active_module: Module
 
 var source_port: Port
 
-const HORIZONTAL_OFFSET_DISTANCE: float = 25
-const HORIZONTAL_OFFSET: Vector2 = Vector2(HORIZONTAL_OFFSET_DISTANCE, 0)
+var extra: float = 0
 
 func _ready():
 	configure_modules()
@@ -62,6 +61,8 @@ func connect_to_module_ports(_module: Module) -> void:
 func on_module_valid_input_port_available(_module: Module, _port: Port) -> void:
 	if active_connection and _module != active_connection.parent_module:
 		active_connection.connect_to_port(_port)
+		active_connection.horizontal_offset_distance_increment += extra
+		extra += 10
 
 func on_module_exited() -> void:
 	if active_connection:
